@@ -10,15 +10,15 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 1. Sign in to Amazon Lightsail using an Amazon Web Services account.
 2. Create an instance.
 3. Choose an instance image: Ubuntu - choose "OS Only".
-4. Choose a payment plan - for this project pick the lowest one to free-tier access.
-5. Give the instance a unique name and click 'Create'.
+4. Choose a payment plan - for this project pick the lowest one for free-tier access.
+5. Give the instance a unique name and click "Create".
 6. Wait for the instance to start up.
-7. Click networking tab and at the bottom of the page click "Add another". Add ports 123 and 2200.
+7. Click the networking tab and at the bottom of the page click "Add another". Add ports 123 and 2200.
 ### Connect to the instance on a local machine
 1. Navigate to the Account Page and download the default key.
 2. Save this in ~/.ssh with the name udacity.pem.
-3. To make the key secure, from terminal input chmod 600 ~/.ssh/udacity.pem.
-4. Log in: ssh -i ~/.ssh/udacity.pem ubuntu@[public IP address shown on the Lightrail page].
+3. $ chmod 600 ~/.ssh/udacity.pem - make the key secure.
+4. $ ssh -i ~/.ssh/udacity.pem ubuntu@[public IP address shown on the Lightrail page] - log into the server
 ### Upgrade packages
 1. $ sudo apt-get update
 2. $ sudo apt-get upgrade
