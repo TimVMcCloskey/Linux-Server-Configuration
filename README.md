@@ -13,8 +13,24 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 4. Choose a payment plan - for this project pick the lowest one to free-tier access.
 5. Give the instance a unique name and click 'Create'.
 6. Wait for the instance to start up.
+7. Click networking tab and at the bottom of the page click "Add another". Add ports 123 and 2200.
 ### Connect to the instance on a local machine
 1. Navigate to the Account Page and download the default key.
 2. Save this in ~/.ssh with the name udacity.pem.
 3. To make the key secure, from terminal input chmod 600 ~/.ssh/udacity.pem.
-4. Log in: ssh -i ~/.ssh /udacity.pem ubuntu@[public IP address shown on the Lightrail page]
+4. Log in: ssh -i ~/.ssh/udacity.pem ubuntu@[public IP address shown on the Lightrail page].
+### Upgrade packages
+1. $ sudo apt-get update
+2. $ sudo apt-get upgrade
+3. $ sudo apt-get install finger
+### Configure the firewall
+1. $ sudo nano /etc/ssh/sshd_config file - find the Port line and change 22 to 2200.
+2. $ sudo service ssh restart - restart ssh
+3. $ sudo ufw status - check for firewall
+4. $ sudo ufw default deny incoming - block everything coming in.
+5. $ sudo ufw default allow outgoing - allow everything outgoing.
+6. $ sudo ufw allow 2200/tcp
+7. $ sudo ufw allow 80/tcp
+8. $ sudo ufw allow 123/udp
+9. $ sudo ufw enable
+### Create user grader
