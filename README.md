@@ -13,3 +13,8 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 4. Choose a payment plan - for this project pick the lowest one to free-tier access.
 5. Give the instance a unique name and click 'Create'.
 6. Wait for the instance to start up.
+### Connect to the instance on a local machine
+1. Navigate to the Account Page and download the default key.
+2. Save this in ~/.ssh with the name udacity.pem.
+3. To make the key secure, from terminal input chmod 600 ~/.ssh/udacity.pem.
+4. Log in: ssh -i ~/.ssh /udacity.pem ubuntu@[public IP address shown on the Lightrail page]
