@@ -57,11 +57,35 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 4. $ sudo service ssh restart
 5. Log out of server.
 6. $ ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@54.68.176.4 *- Log back in as grader*
-###Configure the local timezone to UTC
+### Configure the local timezone to UTC
 1. $ sudo dpkg-reconfigure tzdata
 2. Set to UTC
-###Install and configure Apache
+### Install and configure Apache
 1. $ sudo apt-get install apache2
 2. $ sudo apt-get install libapache2-mod-wsgi python-dev
 3. $ sudo a2enmod wsgi
 4. $ sudo service apache2 restart
+### Setup apps folder structure
+1. cd /var/www
+2. $ sudo mkdir catalog
+3. $ sudo chown -R grader:grader catalog
+4. $ cd catalog
+5. $ mkdir catalog
+### Install git, clone and setup app
+1. $ sudo apt-get install git
+2. $ cd catalog
+3. $ git clone https://github.com/TimVMcCloskey/SongCatalog.git
+4. $ mv project.py __init__.py
+### Create wsgi file
+5. $ cd /var/www/catalog
+6. $ nano catalog.wsgi
+7. Add the following into this file  
+```
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/catalog/")
+
+from catalog import app as application
+application.secret_key = 'supersecretkey'
+```
