@@ -18,7 +18,7 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 1. Navigate to the Account Page and download the default key.
 2. Save this in ~/.ssh with the name udacity.pem.
 3. $ chmod 600 ~/.ssh/udacity.pem *- Make the key secure.*
-4. $ ssh -i ~/.ssh/udacity.pem ubuntu@[public IP address shown on the Lightrail page] #### Log into the server
+4. $ ssh -i ~/.ssh/udacity.pem ubuntu@[public IP address shown on the Lightrail page] *- Log into the server*
 ### Upgrade packages
 1. $ sudo apt-get update
 2. $ sudo apt-get upgrade
@@ -38,7 +38,7 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 2. $ sudo nano /etc/sudoers.d/grader
 3. Add line -grader ALL=(ALL:ALL) ALL
 4. Save file to give grader sudo privileges.
-### Give user ssh login privileges
+### Give grader ssh login privileges
 1. Open a terminal on local machine to create new keys for grader
 2. $ ssh-keygen -f ~/.ssh/udacity_key.rsa *- Run on local machine.*
 3. Copy the line in ~/.ssh/udacity_key.rsa.pub to the clip board.
@@ -50,3 +50,18 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 9. $ sudo chmod 700 /home/grader/.ssh
 10. $ sudo chmod 644 /home/grader/.ssh/authorized_keys
 11. $ sudo service ssh restart
+###  Enforce key-based authentication and disable root login
+1. $ sudo nano /etc/ssh/sshd_config
+2. Find the PasswordAuthentication line and change it to "no".
+3. Find the PermitRootLogin line change it to "no".
+4. $ sudo service ssh restart
+5. Log out of server.
+6. $ ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@54.68.176.4 *- Log back in as grader*
+###Configure the local timezone to UTC
+1. $ sudo dpkg-reconfigure tzdata
+2. Set to UTC
+###Install and configure Apache
+1. $ sudo apt-get install apache2
+2. $ sudo apt-get install libapache2-mod-wsgi python-dev
+3. $ sudo a2enmod wsgi
+4. $ sudo service apache2 restart
