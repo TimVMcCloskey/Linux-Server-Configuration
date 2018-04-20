@@ -143,7 +143,7 @@ to
 engine = create_engine('postgresql://catalog:songs@localhost/catalog')
 ```
 11. $ python create_categories.py *- Create initial database.*
-*** Google Oauth
+### Google Oauth
 1. Go to https://console.developers.google.com/
 2. Click on Credentials
 3. Add http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com and  
@@ -153,12 +153,12 @@ http://54.68.176.4 to Authorised JavaScript origins.
 6. Hit Save and DOWNLOAD JSON to save changed client_secrets.json to local machine.
 7. Copy line in this file into the clipboard.
 8. Replace the line in client_secrets.json on server with contents in clipboard.
-*** Facebook Oauth
+### Facebook Oauth
 1. Go to https://developers.facebook.com/
 2. Open your application and click on Facebook Login --> settings.
 3. Add http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/fbconnect and  
 http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/login to Valid OAuth redirect URIs and save it.
-*** Change client_secrets paths
+### Change client_secrets paths
 1. nano \__init__.py
 2. Find and change these lines
 ```
@@ -183,3 +183,6 @@ open('fb_client_secrets.json', 'r').read())['web']['app_secret']
 to
 open('/var/www/catalog/catalog/fb_client_secrets.json', 'r').read())['web']['app_secret']
 ```
+### Finish and test
+1. $ sudo service apache2 restart
+2. Enter http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/ or http://54.68.176.4 into a browser.
