@@ -75,7 +75,7 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 1. $ sudo apt-get install git
 2. $ cd catalog
 3. $ git clone https://github.com/TimVMcCloskey/SongCatalog.git
-4. $ mv project.py __init__.py
+4. $ mv project.py \__init__.py
 ### Create wsgi file
 5. $ cd /var/www/catalog
 6. $ nano catalog.wsgi
@@ -116,12 +116,28 @@ application.secret_key = 'udacity'
 4. $ sudo a2dissite 000-default.conf *- Disable the default virtual host.*
 ### Install all the packages needed for this application
 1. $ sudo apt-get install python-pip
-2. $ sudo -H pip install Flask
-3. $ sudo -H pip install httplib2
-4. $ sudo -H pip install oauth2client
-5. $ sudo -H pip install sqlalchemy
-6. $ sudo -H pip install psycopg2
-7. $ sudo -H pip install sqlalchemy_utils
-8. $ sudo -H pip install requests
-9. $ sudo -H pip install render_template
+2. $ sudo pip install Flask
+3. $ sudo pip install httplib2
+4. $ sudo pip install oauth2client
+5. $ sudo pip install sqlalchemy
+6. $ sudo pip install psycopg2
+7. $ sudo pip install sqlalchemy_utils
+8. $ sudo pip install requests
+9. $ sudo pip install render_template
 ### Set up the database
+1. $ sudo su - postgres
+2. $ CREATE USER catalog WITH PASSWORD songs;
+3. $ ALTER USER catalog CREATEDB;
+4. $ CREATE DATABASE catalog WITH OWNER catalog;
+5. $ \c catalog *- Connect to the database*
+6. $ REVOKE ALL ON SCHEMA public FROM public;
+7. $ GRANT ALL ON SCHEMA public TO catalog;
+8. $ \c *- Quit the postgrel command line*
+9. $ exit
+10. In \__init__.py, categories.py, and create_categories.py edit and change
+```
+engine = create_engine('sqlite:///SongCatalog.db')
+to
+engine = create_engine('postgresql://catalog:songs@localhost/catalog')
+```
+$ python create_categories.p *- Create initial database.*
