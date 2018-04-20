@@ -186,3 +186,6 @@ open('/var/www/catalog/catalog/fb_client_secrets.json', 'r').read())['web']['app
 ### Finish and test
 1. $ sudo service apache2 restart
 2. Enter http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/ or http://54.68.176.4 into a browser.
+### Acknowledgments
+https://github.com/callforsky/udacity-linux-configuration
+
