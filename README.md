@@ -75,7 +75,8 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 1. $ sudo apt-get install git
 2. $ cd catalog
 3. $ git clone https://github.com/TimVMcCloskey/SongCatalog.git
-4. $ mv project.py \__init__.py
+4. $ mv project.py \__init__.py *- Rename project.py*
+5. change last line in \__init__.py "to app.run(host='54.68.176.4', port=80)".
 ### Create wsgi file
 5. $ cd /var/www/catalog
 6. $ nano catalog.wsgi
@@ -90,8 +91,9 @@ from catalog import app as application
 application.secret_key = 'udacity'
 ```
 ### Configure virtual host
-1. $ sudo nano /etc/apache2/sites-available/catalog.conf
-2. Add the following into this file
+1. Go to http://www.hcidata.info/host2ip.cgi to get the host name from our public ip.
+2. $ sudo nano /etc/apache2/sites-available/catalog.conf
+3. Add the following into this file
 ```
 <VirtualHost *:80>
     ServerName 54.68.176.4
@@ -112,8 +114,8 @@ application.secret_key = 'udacity'
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
-3. $ sudo a2ensite catalog.conf *- Enable the virtual host.*
-4. $ sudo a2dissite 000-default.conf *- Disable the default virtual host.*
+4. $ sudo a2ensite catalog.conf *- Enable the virtual host.*
+5. $ sudo a2dissite 000-default.conf *- Disable the default virtual host.*
 ### Install all the packages needed for this application
 1. $ sudo apt-get install python-pip
 2. $ sudo pip install Flask
@@ -140,4 +142,44 @@ engine = create_engine('sqlite:///SongCatalog.db')
 to
 engine = create_engine('postgresql://catalog:songs@localhost/catalog')
 ```
-$ python create_categories.p *- Create initial database.*
+11. $ python create_categories.py *- Create initial database.*
+*** Google Oauth
+1. Go to https://console.developers.google.com/
+2. Click on Credentials
+3. Add http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com and  
+http://54.68.176.4 to Authorised JavaScript origins.
+4. Add http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/gconnect and . 
+5. http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/login to Authorised redirect URIs.
+6. Hit Save and DOWNLOAD JSON to save changed client_secrets.json to local machine.
+7. Copy line in this file into the clipboard.
+8. Replace the line in client_secrets.json on server with contents in clipboard.
+*** Facebook Oauth
+1. Go to https://developers.facebook.com/
+2. Open your application and click on Facebook Login --> settings.
+3. Add http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/fbconnect and  
+http://ec2-54-68-176-4.us-west-2.compute.amazonaws.com/login to Valid OAuth redirect URIs and save it.
+*** Change client_secrets paths
+1. nano \__init__.py
+2. Find and change these lines
+```
+from
+    open('client_secrets.json', 'r').read())['web']['client_id']
+to
+    open('/var/www/catalog/catalog/client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = "Item Catalog App"
+
+from
+oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+to 
+oauth_flow = flow_from_clientsecrets('/var/www/catalog/catalog/client_secrets.json', scope='')
+
+from
+app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
+to
+app_id = json.loads(open('/var/www/catalog/catalog/fb_client_secrets.json', 'r').read())[
+
+from
+open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+to
+open('/var/www/catalog/catalog/fb_client_secrets.json', 'r').read())['web']['app_secret']
+```
