@@ -124,3 +124,4 @@ application.secret_key = 'udacity'
 7. $ sudo -H pip install sqlalchemy_utils
 8. $ sudo -H pip install requests
 9. $ sudo -H pip install render_template
+### Set up the database
