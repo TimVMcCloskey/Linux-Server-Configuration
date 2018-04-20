@@ -87,5 +87,40 @@ logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0, "/var/www/catalog/")
 
 from catalog import app as application
-application.secret_key = 'supersecretkey'
+application.secret_key = 'udacity'
 ```
+### Configure virtual host
+1. $ sudo nano /etc/apache2/sites-available/catalog.conf
+2. Add the following into this file
+```
+<VirtualHost *:80>
+    ServerName 54.68.176.4
+    ServerAlias ec2-54-68-176-4.us-west-2.compute.amazonaws.com
+    ServerAdmin timgymn@gmail.com
+    WSGIScriptAlias / /var/www/catalog/catalog.wsgi
+    <Directory /var/www/catalog/catalog/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/catalog/catalog/static
+    <Directory /var/www/catalog/catalog/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+3. $ sudo a2ensite catalog.conf *- Enable the virtual host.*
+4. $ sudo a2dissite 000-default.conf *- Disable the default virtual host.*
+### Install all the packages needed for this application
+1. $ sudo apt-get install python-pip
+2. $ sudo -H pip install Flask
+3. $ sudo -H pip install httplib2
+4. $ sudo -H pip install oauth2client
+5. $ sudo -H pip install sqlalchemy
+6. $ sudo -H pip install psycopg2
+7. $ sudo -H pip install sqlalchemy_utils
+8. $ sudo -H pip install requests
+9. $ sudo -H pip install render_template
