@@ -24,7 +24,7 @@ This is the final project for the Udacity Full Stack Nano Degree. The requiremen
 2. $ sudo apt-get upgrade
 3. $ sudo apt-get install finger
 ### Configure the firewall
-1. $ sudo nano /etc/ssh/sshd_config file *- Find the Port line and change 22 to 2200.
+1. $ sudo nano /etc/ssh/sshd_config file *- Find the Port line and change 22 to 2200.*
 2. $ sudo service ssh restart *-Restart ssh*
 3. $ sudo ufw status *-Check for firewall*
 4. $ sudo ufw default deny incoming *- Block everything coming in.*
