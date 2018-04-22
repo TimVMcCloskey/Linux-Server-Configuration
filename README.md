@@ -166,7 +166,6 @@ from
     open('client_secrets.json', 'r').read())['web']['client_id']
 to
     open('/var/www/catalog/catalog/client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Item Catalog App"
 
 from
 oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
